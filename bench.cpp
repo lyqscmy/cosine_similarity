@@ -45,20 +45,20 @@ static void BM_CosineSimilarity_dd(benchmark::State &state) {
   }
 }
 
-static void BM_CosineSimilarity_dot(benchmark::State &state) {
-  /* cout << "ok" << std::endl; */
-  const int sz = 300;
-  vector<float> A = rand_vector(sz, 1234);
-  vector<float> B = rand_vector(sz, 5678);
+/* static void BM_CosineSimilarity_dot(benchmark::State &state) { */
+/*   /1* cout << "ok" << std::endl; *1/ */
+/*   const int sz = 300; */
+/*   vector<float> A = rand_vector(sz, 1234); */
+/*   vector<float> B = rand_vector(sz, 5678); */
 
-  for (auto _ : state) {
-    /* auto cos = A[0]; */
-    auto cos = dot(static_cast<int>(sz), static_cast<float *>(A.data()),
-                   static_cast<float *>(B.data()));
-    benchmark::DoNotOptimize(cos);
-  }
-}
-BENCHMARK(BM_CosineSimilarity_dot);
+/*   for (auto _ : state) { */
+/*     /1* auto cos = A[0]; *1/ */
+/*     auto cos = dot(static_cast<int>(sz), static_cast<float *>(A.data()), */
+/*                    static_cast<float *>(B.data())); */
+/*     benchmark::DoNotOptimize(cos); */
+/*   } */
+/* } */
+/* BENCHMARK(BM_CosineSimilarity_dot); */
 BENCHMARK(BM_CosineSimilarity_ref);
 BENCHMARK(BM_CosineSimilarity_dd);
 BENCHMARK_MAIN()

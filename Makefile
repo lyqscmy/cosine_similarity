@@ -10,8 +10,12 @@ bench.o: bench.cpp
 cosine_similarity.o: cosine_similarity.c
 	gcc -std=c99 -Wall -O2 -march=native -o $@ -c $^ -I ~/git/OpenBLAS/
 
-libcosim.so: cosine_similarity.c
-	gcc -std=c99 -shared -Wall -O2 -march=native -shared -fpic -o $@  $^ -I ~/git/OpenBLAS/ ~/git/OpenBLAS/libopenblas.a  -lm
+CosineSimilarity.o: CosineSimilarity.c
+	gcc -std=c99 -Wall -O2 -march=native -fpic -o $@ -c $^ -I /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el7_4.x86_64/include/ \
+	-I /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el7_4.x86_64/include/linux/
+
+libcosim.so: CosineSimilarity.o cosine_similarity.o
+	gcc -std=c99 -shared -Wall -O2 -march=native -shared -o $@  $^ -I ~/git/OpenBLAS/ ~/git/OpenBLAS/libopenblas.a  -lm
 
 test: main.cpp libcosim.so
 	g++ -std=c++11 -O2 -march=native -o test main.cpp -L./ -lcosim
