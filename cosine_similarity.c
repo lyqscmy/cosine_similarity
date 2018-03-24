@@ -27,11 +27,12 @@ extern "C" {
  * incy); */
 float cosine_similarity_dd(const int both_size, const float *A,
                            const float *B) {
+  if(both_size < 1) return NAN;
   float a2 = cblas_sdot(both_size, A, 1, A, 1);
   float c = cblas_sdot(both_size, A, 1, B, 1);
   float b2 = cblas_sdot(both_size, B, 1, B, 1);
   if (a2 == 0.0 || b2 == 0.0) {
-    return 0.0;
+    return NAN;
   } else {
     return c / sqrt(a2 * b2);
   }
@@ -39,6 +40,7 @@ float cosine_similarity_dd(const int both_size, const float *A,
 
 float cosine_similarity_dd2(const float a2, const int both_size, const float *A,
                            const float *B) {
+  if(both_size < 1) return NAN;
   float b2 = cblas_sdot(both_size, B, 1, B, 1);
   float c = cblas_sdot(both_size, A, 1, B, 1);
   if (a2 == 0.0 || b2 == 0.0) {
